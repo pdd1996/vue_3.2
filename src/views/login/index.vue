@@ -1,11 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="ruleFormRef"
-      :model="ruleFormRef"
-      :rules="rules"
-      class="login-form"
-    >
+    <el-form ref="formRef" :model="form" :rules="rules" class="login-form">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
@@ -23,10 +18,7 @@
         <svg-icon icon="password" class="svg-container"></svg-icon>
         <el-input v-model="form.password" />
       </el-form-item>
-      <el-button
-        type="primary"
-        class="login-button"
-        @click="handleLogin(ruleFormRef)"
+      <el-button type="primary" class="login-button" @click="handleLogin"
         >登录</el-button
       >
     </el-form>
@@ -35,6 +27,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { login } from '@/api/login'
 // import { Share } from '@element-plus/icons-vue'
 const form = ref({
   username: '',
@@ -46,14 +39,14 @@ const rules = ref({
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 })
 
-const ruleFormRef = ref()
-const handleLogin = async (user) => {
-  if (!user) return
-  await user.validate((valid, fields) => {
+const formRef = ref()
+const handleLogin = () => {
+  formRef.value.validate(async (valid) => {
     if (valid) {
-      console.log('submit!')
+      login(form.value)
     } else {
-      console.log('error submit!', fields)
+      console.log('error submit!!')
+      return false
     }
   })
 }
