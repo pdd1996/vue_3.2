@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 const service = axios.create({
   // 基础路径
@@ -6,4 +7,20 @@ const service = axios.create({
   timeout: 5000
 })
 
+// 响应请求拦截器
+service.interceptors.response.use(
+  (response) => {
+    const { data, meta } = response.data
+    if (meta.status === 200 || meta.status === 201) {
+      return data
+    } else {
+      ElMessage.error(meta.msg)
+      return Promise.reject(new Error(meta.msg))
+    }
+  },
+  (error) => {
+    error.response && ElMessage.error(error.response.data)
+    return Promise.reject(new Error(error.response.data))
+  }
+)
 export default service
