@@ -70,6 +70,9 @@ module.exports = defineConfig({
   },
   devServer: {
     https: false,
+    client: {
+      overlay: false
+    },
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8888/api/private/v1/',
