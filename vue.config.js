@@ -1,24 +1,24 @@
-const { defineConfig } = require('@vue/cli-service')
-const AutoImport = require("unplugin-auto-import/webpack");
-const Components = require("unplugin-vue-components/webpack");
-const { ElementPlusResolver } = require("unplugin-vue-components/resolvers");
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+
 const path = require('path')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
 const webpack = require('webpack')
-
-module.exports = defineConfig({
-  transpileDependencies: true,
-  configureWebpack: {
-    plugins: [
+module.exports = {
+  configureWebpack: (config) => {
+    config.plugins.push(
       AutoImport({
-        resolvers: [ElementPlusResolver()],
-      }),
+        resolvers: [ElementPlusResolver()]
+      })
+    )
+    config.plugins.push(
       Components({
-        resolvers: [ElementPlusResolver()],
-      }),
-    ],
+        resolvers: [ElementPlusResolver()]
+      })
+    )
   },
   chainWebpack(config) {
     // 设置 svg-sprite-loader
@@ -53,9 +53,7 @@ module.exports = defineConfig({
       .end()
     config
       .plugin('ignore')
-      .use(
-        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn$/)
-      )
+      .use(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn$/))
     config.module
       .rule('icons')
       .test(/\.svg$/)
@@ -70,9 +68,7 @@ module.exports = defineConfig({
   },
   devServer: {
     https: false,
-    client: {
-      overlay: false
-    },
+    hotOnly: false,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:8888/api/private/v1/',
@@ -86,12 +82,12 @@ module.exports = defineConfig({
   css: {
     loaderOptions: {
       sass: {
-        prependData:   // 8版本用prependData: 
-        `
+        // 8版本用prependData:
+        prependData: `
           @import "@/styles/variables.scss";  // scss文件地址
           @import "@/styles/mixin.scss";     // scss文件地址
         `
       }
     }
   }
-});
+}

@@ -8,19 +8,12 @@ module.exports = {
     '@vue/standard'
   ],
   parserOptions: {
-    parser: '@babel/eslint-parser'
+    parser: 'babel-eslint'
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'indent': 0,
-    'space-before-function-paren': 0,
-    'vue/multi-word-component-names': [
-            'warn',
-            {
-                // 指定需要忽略的组件名称
-                ignores: ['index']
-            }
-        ]
+    'space-before-function-paren': 0
   }
 }
