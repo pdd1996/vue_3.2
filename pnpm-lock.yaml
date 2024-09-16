@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@element-plus/icons-vue':
+    specifier: 0.2.4
+    version: registry.npmmirror.com/@element-plus/icons-vue@0.2.4(vue@3.2.13)
   axios:
     specifier: ^1.7.7
     version: 1.7.7
@@ -6564,6 +6567,17 @@ packages:
     name: '@ctrl/tinycolor'
     version: 3.6.1
     engines: {node: '>=10'}
+    dev: false
+
+  registry.npmmirror.com/@element-plus/icons-vue@0.2.4(vue@3.2.13):
+    resolution: {integrity: sha512-RsJNyL58rwxtsjeMy34o8txkL6UlME1stWsUlRpTac6UE9Bx9gdJvnDXbIKhOJqBLX17fBjmposdrn6VTqim2w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@element-plus/icons-vue/-/icons-vue-0.2.4.tgz}
+    id: registry.npmmirror.com/@element-plus/icons-vue/0.2.4
+    name: '@element-plus/icons-vue'
+    version: 0.2.4
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.2.13
     dev: false
 
   registry.npmmirror.com/@element-plus/icons-vue@2.3.1(vue@3.2.13):

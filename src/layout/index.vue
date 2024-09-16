@@ -1,13 +1,20 @@
 <template>
   <el-container class="app-wrapper">
-    <el-aside width="200px" class="sidebar-container"> Aside </el-aside>
+    <el-aside width="200px" class="sidebar-container">
+      <Menu />
+    </el-aside>
     <el-container class="container">
       <el-header>header</el-header>
-      <el-main> main </el-main>
+      <el-main>
+        <router-view />
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
+<script setup>
+import Menu from './Menu'
+</script>
 <style lang="scss" scoped>
 .app-container {
   position: relative;
