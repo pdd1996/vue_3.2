@@ -8,7 +8,9 @@
           clearable
         />
       </el-col>
-      <el-button type="primary" :icon="Search">搜索</el-button>
+      <el-button type="primary" :icon="Search" @click="initGetUsersList"
+        >搜索</el-button
+      >
       <el-button type="primary">添加用户</el-button>
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
@@ -35,6 +37,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      v-model:currentPage="queryForm.pagenum"
+      :page-sizes="[1, 5, 10, 15]"
+      :page-size="queryForm.pagesize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
   </el-card>
 </template>
 
@@ -50,20 +61,37 @@ const queryForm = ref({
   pagesize: 2
 })
 
+const total = ref(0)
+
 const tableData = ref([])
 
 const initGetUsersList = async () => {
   const res = await getUsers(queryForm.value)
-  console.log(res)
+  total.value = res.total
   tableData.value = res.users
 }
 
 initGetUsersList()
+
+const handleSizeChange = (pageSize) => {
+  queryForm.value.pagenum = 1
+  queryForm.value.pagesize = pageSize
+  initGetUsersList()
+}
+
+const handleCurrentChange = (pageNum) => {
+  queryForm.value.pagenum = pageNum
+  initGetUsersList()
+}
 </script>
 
 <style lang="scss" scoped>
 .header {
   padding-bottom: 16px;
   box-sizing: border-box;
+}
+
+::v-deep .el-input__suffix {
+  align-items: center;
 }
 </style>
